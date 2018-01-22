@@ -8,7 +8,7 @@
       </li>
     </ul>
     <form >
-    <input type="text" v-model="todo.value">
+    <textarea v-model="todo.value"></textarea>
     <button @click.prevent="addTodo">add</button>
     </form>
   </main>
@@ -68,5 +68,15 @@ main > ul > li {
 }
 main > ul > li > input[type='checkbox'] {
   margin-right: 10px;
+}
+
+form {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+form button {
+  margin-left: 1rem;
 }
 </style>
