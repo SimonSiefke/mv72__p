@@ -3,8 +3,8 @@
     <h1>Todo List</h1>
     <ul>
       <li v-for="todo in this.getTodos()" :key="todo['.key']">
-        <input type="checkbox" :checked="todo.done" @click="toggle(todo['.key'])">
-        {{todo.value}}
+        <input type="checkbox" :checked="todo.done" @click="toggle(todo['.key'], !todo.done)">
+        <span v-html="todo.value"></span>
       </li>
     </ul>
     <form >
@@ -31,12 +31,11 @@ export default {
   methods: {
     addTodo() {
       dbTodosRef.push(this.todo)
+      this.todo.value = ''
     },
-    toggle(key) {
-      console.log(key)
-
+    toggle(key, newVal) {
       dbTodosRef.child(key).update({
-        done: true,
+        done: newVal,
       })
     },
     ...mapGetters(['getTodos']),
@@ -51,16 +50,17 @@ main {
   padding: 2rem;
 }
 
-h1 {
+main > h1 {
   text-align: center;
   margin-bottom: 3rem;
 }
-ul {
+main > ul {
   margin: 0;
   padding: 0;
 }
-li {
+main > ul > li {
   list-style-type: none;
   padding: 0;
+  display: flex;
 }
 </style>
