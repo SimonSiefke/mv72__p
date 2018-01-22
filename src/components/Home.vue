@@ -1,40 +1,66 @@
 <template>
-  <div class="row">
-    <div id="home" class="col-sm-12 text-center">
-      <div class="background">
-        <h1>Welcome to Pizza Planet</h1>
-        <h2>feeling hungry?</h2>
-        <button class="btn btn-success" @click="goToMenu()">Let's order</button>
-      </div>
-    </div>
-  </div>
+  <main>
+    <h1>Todo List</h1>
+    <ul>
+      <li v-for="todo in this.getTodos()" :key="todo['.key']">
+        <input type="checkbox" :checked="todo.done" @click="toggle(todo['.key'])">
+        {{todo.value}}
+      </li>
+    </ul>
+    <form >
+    <input type="text" v-model="todo.value">
+    <button @click.prevent="addTodo">add</button>
+    </form>
+  </main>
 </template>
+
 <script>
+import { mapGetters } from 'vuex'
+import { dbTodosRef } from '../firebaseConfig.js'
+
 export default {
-  methods: {
-    goToMenu() {
-      this.$router.push({ name: 'menuLink' })
+  data() {
+    return {
+      todo: {
+        value: '',
+        done: false,
+      },
     }
-  }
+  },
+
+  methods: {
+    addTodo() {
+      dbTodosRef.push(this.todo)
+    },
+    toggle(key) {
+      console.log(key)
+
+      dbTodosRef.child(key).update({
+        done: true,
+      })
+    },
+    ...mapGetters(['getTodos']),
+  },
 }
 </script>
 
 
 <style>
-#home {
-  background: url('../assets/pizza.jpg');
-  height: 800px;
-  padding: 10%;
+main {
+  width: 100%;
+  padding: 2rem;
 }
-h1,
-h2 {
-  margin: 6%;
+
+h1 {
+  text-align: center;
+  margin-bottom: 3rem;
 }
-.background {
-  background: #eee;
-  opacity: 0.8;
-  max-width: 60%;
-  margin: 0 auto;
-  padding: 20px 0;
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style-type: none;
+  padding: 0;
 }
 </style>
