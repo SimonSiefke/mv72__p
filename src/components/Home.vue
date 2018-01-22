@@ -45,6 +45,9 @@ export default {
 
 
 <style>
+* {
+  outline: none;
+}
 main {
   width: 100%;
   padding: 2rem;
@@ -62,5 +65,8 @@ main > ul > li {
   list-style-type: none;
   padding: 0;
   display: flex;
+}
+main > ul > li > input[type='checkbox'] {
+  margin-right: 10px;
 }
 </style>
