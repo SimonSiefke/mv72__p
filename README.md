@@ -1,5 +1,7 @@
 # vue-fullstack-coding
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/SimonSiefke/mv72__p.svg)](https://greenkeeper.io/)
+
 > A Vue.js project
 
 ## Build Setup
